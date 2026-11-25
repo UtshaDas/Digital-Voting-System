@@ -187,30 +187,6 @@ The candidate names, the number of candidates (4), and the "Total Voter: 59" cou
 
 ---
 
-## Known limitations
-
-This is a learning project and is not suitable for a real election as it stands:
-
-- **Login marks a voter as voted before they vote.** `Vote` is set to `1` as soon as a voter logs in. Closing the window without voting uses up that voter's turn.
-- **Change Password doesn't check who you are.** It accepts any NID, sets a new password and resets `Vote` to `0`. Anyone who can log in could reset another voter's account and vote again with it.
-- **SQL injection.** Some queries add the NID straight into the SQL text (`"... where NID=" + user`). These should use `PreparedStatement` parameters.
-- **Plain-text passwords.** Passwords are stored and compared as plain text. They should be hashed (e.g. with bcrypt).
-- **Database settings in the code.** The connection details, `root` with no password, are repeated in five classes.
-- **Fixed values.** Candidate names, the number of candidates and the total voter count are written directly in the code.
-- **Absolute image paths** only work on the original machine (see [Images](#images)).
-- **Limited array sizes.** Login reads at most 999 users into fixed-size arrays.
-
-## Possible improvements
-
-- Keep the database settings in one config class or properties file.
-- Load candidates from a database table instead of writing them into the code.
-- Use parameterized queries everywhere, and hash passwords.
-- Mark a voter as voted in the same transaction that records the vote.
-- Load images from the classpath (`getClass().getResource(...)`) so they work anywhere.
-- Add a `schema.sql` file to the repository.
-
----
-
 ## Author
 
 **Utsha Das**
